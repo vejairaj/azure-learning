@@ -19,30 +19,92 @@ queue = QueueClient(
     credential=credential
 )
 
+
+
+print("[CONSUMER] Worker started")
+
+print("[CONSUMER] Waiting for messages...")
+
 while True:
 
-    messages = queue.receive_messages(
-        messages_per_page=1,
-        visibility_timeout=30
-    )
+    try:
 
-    found_message = False
+        messages = queue.receive_messages(
 
-    for message in messages:
+            messages_per_page=1,
 
-        found_message = True
+            visibility_timeout=30
 
-        print(f"[CONSUMER] Received: {message.content}")
+        )
 
-        # Simulate actual business processing
-        print(f"[CONSUMER] Processing: {message.content}")
+        found_message = False
 
-        time.sleep(2)
+        for message in messages:
 
-        # Processing succeeded
-        queue.delete_message(message)
+            found_message = True
 
-        print(f"[CONSUMER] Deleted: {message.content}")
+            print()
 
-    if not found_message:
-        time.sleep(10)
+            print("================================")
+
+            print(f"[CONSUMER] Received: {message.content}")
+
+            try:
+
+                # --------------------------------
+
+                # BUSINESS LOGIC
+
+                # --------------------------------
+
+                print(
+
+                    f"[CONSUMER] Processing: "
+
+                    f"{message.content}"
+
+                )
+
+                time.sleep(2)
+
+                # --------------------------------
+
+                # PROCESSING SUCCESSFUL
+
+                # --------------------------------
+
+                queue.delete_message(message)
+
+                print(
+
+                    f"[CONSUMER] Deleted: "
+
+                    f"{message.content}"
+
+                )
+
+            except Exception as e:
+
+                print(
+
+                    f"[CONSUMER] Processing failed: {e}"
+
+                )
+
+                print(
+
+                    "[CONSUMER] Message will become "
+
+                    "visible again after timeout."
+
+                )
+
+        if not found_message:
+
+            time.sleep(2)
+
+    except Exception as e:
+
+        print(f"[CONSUMER] Queue error: {e}")
+
+        time.sleep(5)
