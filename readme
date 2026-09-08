@@ -1,0 +1,37 @@
+
+
+What we’re going to build is production like messaging queue 
+
+Azure Queue Storage is designed specifically for this producer/consumer decoupling pattern
+
+                 YOUR MAC
+        ┌──────────────────────┐
+        │                      │
+        │  producer.py         │
+        │      │               │
+        │      │ send          │
+        │      ▼               │
+        │  Azure Queue         │
+        │      │               │
+        │      │ receive       │
+        │      ▼               │
+        │  consumer.py         │
+        │      │               │
+        │      │ process OK    │
+        │      ▼               │
+        │    DELETE            │
+        │                      │
+        └──────────────────────┘
+        
+We’ll eventually move consumer.py to your Azure VM:
+
+
+Mac
+ │
+ │ producer
+ ▼
+Azure Queue
+ │
+ │ consumer
+ ▼
+Azure VM
