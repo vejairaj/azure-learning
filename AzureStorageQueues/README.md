@@ -152,6 +152,10 @@ For every message:
 [CONSUMER] Processing: Process Order #1
 [CONSUMER] Deleted: Process Order #1
 
+<<<<<<< HEAD
 
 The END
+=======
+>>>>>>> origin/main
 
+The END
