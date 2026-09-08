@@ -45,4 +45,4 @@ while True:
         print(f"[CONSUMER] Deleted: {message.content}")
 
     if not found_message:
-        time.sleep(2)
+        time.sleep(10)
