@@ -10,9 +10,12 @@ queue_url = (
 )
 
 credential = DefaultAzureCredential()
-
 queue = QueueClient(
-    queue_url=queue_url,
+
+    account_url=f"https://{STORAGE_ACCOUNT}.queue.core.windows.net",
+
+    queue_name=QUEUE_NAME,
+
     credential=credential
 )
 
